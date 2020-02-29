@@ -1,0 +1,51 @@
+---
+title: "ms_3"
+author: "Tivas Gupta"
+date: "2/28/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
+```
+
+## About
+
+# The Data
+
+This project seeks to explore the relationship between inequality and the rise of populist sentiments around the world. The inequality data is from the World Inequality Database, which tracks both income and wealth inequality worldwide since the nineteenth century. The populist data is from the Global Populism Database and the Authoritarian Populism Index. Using this data, we can look at the relationship between these variables and determine how inequality has affected populist sentiments over time.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+# About Me : Tivas Gupta
+
+I am a Harvard undergraduate studying Government and Computer Science. I gained my inspiration for this project from reading Thomas Piketty's Capital in the Twenty-First Century, and enjoyed using his data to explore this area of economics further.
+
+
+```{r, warning = FALSE}
+
+# We will use this R chunk to load and clean the data that I will use for the
+# project. First I will load the inequality data.
+
+library(readr)
+library(janitor)
+library(tidyverse)
+
+inequality <- read_csv("Income Inequality Data by Country.csv") %>%
+  clean_names() 
+#View(inequality)
+
+#We need to tidy it so we can add populism data.
+
+tidy_inequality <- inequality %>%
+  pivot_longer(cols = -year, 
+               names_to = "Country Name", 
+               values_to = "Inequality Data") 
+
+#Now we can load the populist 
+
+populist <- read_csv("speech_populist.csv") %>%
+  clean_names()
+#View(populist)
+```
+
